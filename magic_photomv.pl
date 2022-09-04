@@ -29,16 +29,16 @@ if ($outr > 40) {
 if (-e '/home/divellc/newpic/snapshot.jpg') {
 	print "newpic file exists..\n";
 	# Add logo
-	# $im = `convert /home/divellc/newpic/snapshot.jpg /root/bin/output.png -gravity southeast -geometry +15+15 -composite /home/divellc/newpic/snapshotim.jpg`;
-	#print "Added logo to snapshot\n";
-	#sleep 1;
+	$im = `convert /home/divellc/newpic/snapshot.jpg /root/bin/output.png -gravity southeast -geometry +15+15 -composite /home/divellc/newpic/snapshotim.jpg`;
+	print "Added logo to snapshot\n";
+	sleep 1;
 	# Add date
-	#$id = `convert /home/divellc/newpic/snapshotim.jpg -pointsize 24 -fill white -undercolor '#00000080' -gravity SouthEast -annotate +0+5 "$(date)" /home/divellc/newpic/snapshotid.jpg`;
-	$md5 = `md5sum /home/divellc/newpic/snapshot.jpg`;
+	$id = `convert /home/divellc/newpic/snapshotim.jpg -pointsize 24 -fill white -undercolor '#00000080' -gravity SouthEast -annotate +0+5 "$(date)" /home/divellc/newpic/snapshotid.jpg`;
+	$md5 = `md5sum /home/divellc/newpic/snapshotid.jpg`;
 	chomp $md5;
-	$fi = `file /home/divellc/newpic/snapshot.jpg`;
+	$fi = `file /home/divellc/newpic/snapshotid.jpg`;
 	#$xcpy = `cp /home/divellc/newpic/snapshot.jpg $daydir/$stamp.jpg`;
-	$m = `mv /home/divellc/newpic/snapshot.jpg /var/www/html/thedive/snapshot.jpg`;
+	$m = `mv /home/divellc/newpic/snapshotid.jpg /var/www/html/thedive/snapshot.jpg`;
 	print "photo mv from new to html\n";
 	 if ($fi =~ /JPEG/) {
 	    print LG "$stamp: JPEG $md5 mv from new to html\n";

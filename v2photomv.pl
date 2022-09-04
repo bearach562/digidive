@@ -6,19 +6,22 @@
 my @oldpics = glob('/home/divellc/oldpics/*.jpg');
 my $ra = $a[ int rand @oldpics ];
 my $randpic = $oldpics[$ra];
-#my $day = `date +%Y-%m`;
+my $day = `date +%Y-%m-%d`;
 my $stamp = `date +%s`;
 chomp $stamp;
 open(LG, '>>', '/root/run.log');
 my $fi;
 my @outr = glob('/home/divellc/outrot/*.jpg');
 my $ornum = @outr;
-#my $daydir = "/home/divellc/arch/$day";
+my $daydir = "/home/divellc/arch/$day";
 
-#if (-e $daydir) {
-	# } else {
-	  #	$md = `mkdir $daydir`;
-	#}	
+
+if (-d $daydir) {
+	print "DayDir: $daydir\n";
+	 } else {
+	print "DayDir doesn't exist $daydir\n";	 
+	$md = `mkdir $daydir`;
+	}	
 
 if ($outr > 40) {
 	$mz = `mv /home/divellc/outrot/*.jpg /home/divellc/oldpics/`;
@@ -28,12 +31,6 @@ if ($outr > 40) {
 #if (-e '/home/divellc/newpic/snapshot.jpg') {
 if (-e '/home/divellc/newpic/snapshot.jpg') {
 	print "newpic file exists..\n";
-	# Add logo
-	# $im = `convert /home/divellc/newpic/snapshot.jpg /root/bin/output.png -gravity southeast -geometry +15+15 -composite /home/divellc/newpic/snapshotim.jpg`;
-	#print "Added logo to snapshot\n";
-	#sleep 1;
-	# Add date
-	#$id = `convert /home/divellc/newpic/snapshotim.jpg -pointsize 24 -fill white -undercolor '#00000080' -gravity SouthEast -annotate +0+5 "$(date)" /home/divellc/newpic/snapshotid.jpg`;
 	$md5 = `md5sum /home/divellc/newpic/snapshot.jpg`;
 	chomp $md5;
 	$fi = `file /home/divellc/newpic/snapshot.jpg`;
@@ -43,13 +40,16 @@ if (-e '/home/divellc/newpic/snapshot.jpg') {
 	 if ($fi =~ /JPEG/) {
 	    print LG "$stamp: JPEG $md5 mv from new to html\n";
 	   } else {
-            print LG "$stamp: NOJPEG $md5 mv from new to html\n";
+            #print LG "$stamp: NOJPEG $md5 mv from new to html\n";
+	    OLD(); 
            }
         } else {
-	$mm = `cp $randpic /var/www/html/thedive/snapshot.jpg`;
-	$or = `mv $randpic /home/divellc/outrot/`;
-	print "copied random oldpic to html\n";
-	print LG "$stamp: (array = $ornum) copied rand oldpic to html\n";
+	OLD();	
 	}	
 
-
+sub OLD {
+	#$mm = `cp $randpic /var/www/html/thedive/snapshot.jpg`;
+	#$or = `mv $randpic /home/divellc/outrot/`;
+        print "copied random oldpic to html\n";
+        print LG "$stamp: (array = $ornum) copied rand oldpic to html\n";
+}
