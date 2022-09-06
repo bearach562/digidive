@@ -13,6 +13,7 @@ my $idx = rand @oldpics;
 my $randpic = $oldpics[$idx];
 #print "My random pic = $randpic\n";
 my $day = `date +%Y-%m-%d`;
+chomp $day;
 my $stamp = `date +%s`;
 chomp $stamp;
 my $archpic = $stamp . '.jpg';
@@ -45,7 +46,10 @@ sub NPT {
 		   if ($fl =~ /JPEG/) {
 			   $fl = 'JPEG';
 			   $arch = `cp /home/divellc/newpic/snapshot.jpg /home/divellc/arch/$day/`;
+			   #print "Copy /home/divellc/newpic/snapshot.jpg to /home/divellc/arch/$day/\n";
 			   $arch = `mv /home/divellc/arch/$day/snapshot.jpg /home/divellc/arch/$day/$archpic`;
+			   print LG "$stamp AR | /home/divellc/arch/$day/$archpic\n";
+			   #print "Move /home/divellc/arch/$day/snapshot.jpg to /home/divellc/arch/$day/$archpic\n";
 			   # add logo, mv and hash, log
 			   &lmhl();
 		   }
