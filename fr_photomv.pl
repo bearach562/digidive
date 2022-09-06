@@ -12,7 +12,7 @@ my @oldpics = glob('/home/divellc/oldpics/*.jpg');
 my $idx = rand @oldpics;
 my $randpic = $oldpics[$idx];
 #print "My random pic = $randpic\n";
-#my $day = `date +%Y-%m`;
+my $day = `date +%Y-%m-%d`;
 my $stamp = `date +%s`;
 chomp $stamp;
 my $archpic = $stamp . '.jpg';
@@ -20,7 +20,16 @@ open(LG, '>>', '/root/run.log');
 my $fi;
 my @outr = glob('/home/divellc/outrot/*.jpg');
 my $ornum = @outr;
-#my $daydir = "/home/divellc/arch/$day";
+my $daydir = "/home/divellc/arch/$day/";
+
+if (-d $daydir) {
+	print "$daydir directory exists\n";
+} else {
+	$rr = `mkdir /home/divellc/arch/$day/`;
+	print "CREATING $daydir \n";
+}
+
+
 
 sub NPT {
 	# Test new pic for
@@ -35,7 +44,8 @@ sub NPT {
 	   } else {
 		   if ($fl =~ /JPEG/) {
 			   $fl = 'JPEG';
-			   $arch = `cp /home/divellc/newpic/snapshot.jpg /home/divellc/arch/$archpic`;
+			   $arch = `cp /home/divellc/newpic/snapshot.jpg /home/divellc/arch/$day/`;
+			   $arch = `mv /home/divellc/arch/$day/snapshot.jpg /home/divellc/arch/$day/$archpic`;
 			   # add logo, mv and hash, log
 			   &lmhl();
 		   }
