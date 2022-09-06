@@ -17,7 +17,7 @@ chomp $day;
 my $stamp = `date +%s`;
 chomp $stamp;
 my $archpic = $stamp . '.jpg';
-open(LG, '>>', '/root/run.log');
+open(LG, '>>', '/root/bin/run.log');
 my $fi;
 my @outr = glob('/home/divellc/outrot/*.jpg');
 my $ornum = @outr;
