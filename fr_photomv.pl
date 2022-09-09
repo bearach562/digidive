@@ -17,7 +17,7 @@ chomp $day;
 my $stamp = `date +%s`;
 chomp $stamp;
 my $archpic = $stamp . '.jpg';
-open(LG, '>>', '/root/bin/run.log');
+#open(LG, '>>', '/root/bin/run.log');
 my $fi;
 my @outr = glob('/home/divellc/outrot/*.jpg');
 my $ornum = @outr;
@@ -29,6 +29,7 @@ if (-d $daydir) {
 	$rr = `mkdir /home/divellc/arch/$day/`;
 	print "CREATING $daydir \n";
 }
+open(LG, '>>', "$daydir/run.log");
 
 
 
